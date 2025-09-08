@@ -161,6 +161,32 @@ public List<Persona> obtenerPorEmpresa(int idEmpresa) {
     }
     return lista;
 }
+// Dentro de PersonaDAO
+public Persona obtenerPorId(int id) {
+    String sql = "SELECT * FROM persona WHERE id = ?";
+    try (Connection con = ConexionBD.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            Persona persona = new Persona();
+            persona.setId(rs.getInt("id"));
+            persona.setNombre(rs.getString("nombre"));
+            persona.setApellido(rs.getString("apellido"));
+            persona.setCorreo(rs.getString("correo"));
+            persona.setRol(rs.getString("rol"));
+            persona.setActivo(rs.getBoolean("activo"));
+            persona.setIdEmpresa(rs.getInt("id_empresa"));
+            return persona;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener persona por ID: " + e.getMessage());
+    }
+    return null;
+}
+
 
 
 }

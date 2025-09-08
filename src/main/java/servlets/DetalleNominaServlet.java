@@ -3,12 +3,17 @@ package servlets;
 import java.io.IOException;
 
 import dao.DetalleNominaDAO;
+import dao.PersonaDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modelo.DetalleNomina;
+import modelo.Persona;
 
+@WebServlet("/DetalleNominaServlet")
 public class DetalleNominaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -17,8 +22,29 @@ public class DetalleNominaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuario") == null) {
+                response.sendRedirect("login.html");
+                return;
+            }
+
+            Persona usuario = (Persona) session.getAttribute("usuario");
+            int idEmpresa = usuario.getIdEmpresa();
+
+            int idPersona = Integer.parseInt(request.getParameter("id_persona"));
+
+            // ✅ Verificar que el empleado pertenece a la empresa del usuario
+            PersonaDAO personaDAO = new PersonaDAO();
+            Persona empleado = personaDAO.obtenerPorId(idPersona);
+
+            if (empleado == null || empleado.getIdEmpresa() != idEmpresa) {
+                response.sendRedirect("detalleNomina.jsp?error=empresa");
+                return;
+            }
+
+            // ✅ Crear detalle con parámetros
             DetalleNomina detalle = new DetalleNomina();
-            detalle.setIdPersona(Integer.parseInt(request.getParameter("id_persona")));
+            detalle.setIdPersona(idPersona);
             detalle.setCuentaBancaria(request.getParameter("cuenta_bancaria"));
             detalle.setSalarioBase(parseDoubleSafe(request.getParameter("salario_base")));
             detalle.setAuxilioTransporte(parseDoubleSafe(request.getParameter("auxilio_transporte")));
@@ -37,6 +63,7 @@ public class DetalleNominaServlet extends HttpServlet {
             detalle.setPrimaServicios(parseDoubleSafe(request.getParameter("prima_servicios")));
             detalle.setTotalPagar(parseDoubleSafe(request.getParameter("total_pagar")));
 
+            // ✅ Guardar en BD
             DetalleNominaDAO dao = new DetalleNominaDAO();
             boolean exito = dao.insertarDetalle(detalle);
 

@@ -5,11 +5,15 @@ import java.sql.Date;
 
 import dao.ReporteDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import modelo.Persona;
 import modelo.Reporte;
 
+@WebServlet("/ReporteServlet")
 public class ReporteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -18,13 +22,24 @@ public class ReporteServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            int idAutor = Integer.parseInt(request.getParameter("id_autor"));
+            // Recuperar usuario logueado
+            HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuario") == null) {
+                response.sendRedirect("login.html");
+                return;
+            }
+
+            Persona usuario = (Persona) session.getAttribute("usuario");
+            int idAutor = usuario.getId(); // 🔹 Ahora el autor es el usuario logueado
+
+            // Obtener datos del formulario
             int idPersona = Integer.parseInt(request.getParameter("id_persona"));
             String nombrePersona = request.getParameter("nombre_persona");
             String razon = request.getParameter("razon");
             Date fechaReporte = Date.valueOf(request.getParameter("fecha_reporte"));
             String comentarios = request.getParameter("comentarios");
 
+            // Crear objeto reporte
             Reporte reporte = new Reporte();
             reporte.setIdAutor(idAutor);
             reporte.setIdPersona(idPersona);
@@ -33,6 +48,7 @@ public class ReporteServlet extends HttpServlet {
             reporte.setFechaReporte(fechaReporte);
             reporte.setComentarios(comentarios);
 
+            // Guardar en BD
             ReporteDAO dao = new ReporteDAO();
             boolean ok = dao.insertarReporte(reporte);
 

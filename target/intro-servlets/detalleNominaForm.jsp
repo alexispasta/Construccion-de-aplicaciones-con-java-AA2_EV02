@@ -1,10 +1,21 @@
 <%@ page import="java.util.List" %>
 <%@ page import="modelo.Persona" %>
 <%@ page import="dao.PersonaDAO" %>
+
 <%
-    PersonaDAO personaDAO = new PersonaDAO();
-    List<Persona> empleados = personaDAO.obtenerTodos();
+    // ✅ Recuperar usuario logueado
+    Persona usuario = (Persona) session.getAttribute("usuario");
+    if (usuario == null) {
+        response.sendRedirect("login.html");
+        return;
+    }
+
+    int idEmpresa = usuario.getIdEmpresa();
+
+    PersonaDAO dao = new PersonaDAO();
+    List<Persona> empleados = dao.obtenerPorEmpresa(idEmpresa);
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,9 +23,10 @@
     <title>Gestión de Nómina</title>
     <style>
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 5px; }
+        th, td { border: 1px solid #ccc; padding: 5px; text-align: center; }
         input[type="number"], input[type="text"] { width: 120px; }
         .guardar { background: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .guardar:hover { background: #45a049; }
     </style>
 </head>
 <body>
@@ -32,7 +44,7 @@
         <tbody>
         <% for (Persona emp : empleados) { %>
             <tr>
-                <form action="detalleNomina" method="post">
+                <form action="DetalleNominaServlet" method="post">
                     <td><%= emp.getId() %>
                         <input type="hidden" name="id_persona" value="<%= emp.getId() %>">
                     </td>

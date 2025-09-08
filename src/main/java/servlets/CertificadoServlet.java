@@ -5,11 +5,14 @@ import java.sql.Date;
 
 import dao.CertificadoDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modelo.Certificado;
 
+@WebServlet("/CertificadoServlet")
 public class CertificadoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -18,13 +21,21 @@ public class CertificadoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            // Validar sesión
+            HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuario") == null) {
+                response.sendRedirect("login.html");
+                return;
+            }
+
+            // Obtener datos del formulario
             int idPersona = Integer.parseInt(request.getParameter("id_persona"));
             String nombrePersona = request.getParameter("nombre_persona");
             String carrera = request.getParameter("carrera");
             Date fechaInicio = Date.valueOf(request.getParameter("fecha_inicio"));
             String institucion = request.getParameter("institucion");
 
-            // Crear objeto
+            // Crear objeto Certificado
             Certificado certificado = new Certificado();
             certificado.setIdPersona(idPersona);
             certificado.setNombrePersona(nombrePersona);
@@ -32,7 +43,7 @@ public class CertificadoServlet extends HttpServlet {
             certificado.setFechaInicio(fechaInicio);
             certificado.setInstitucion(institucion);
 
-            // Insertar
+            // Insertar en BD
             CertificadoDAO dao = new CertificadoDAO();
             boolean ok = dao.insertarCertificado(certificado);
 
