@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Nómina</title>
+</head>
+<body>
+    <h2>Registro de Nómina</h2>
+    <form action="nomina" method="post">
+        <label for="id_persona">ID de la Persona:</label><br>
+        <input type="number" name="id_persona" id="id_persona" required><br><br>
+
+        <label for="fecha_pago">Fecha de Pago:</label><br>
+        <input type="date" name="fecha_pago" id="fecha_pago" required><br><br>
+
+        <label for="cantidad">Cantidad a Pagar:</label><br>
+        <input type="number" step="0.01" name="cantidad" id="cantidad" required><br><br>
+
+        <input type="submit" value="Registrar Nómina">
+    </form>
+</body>
+</html>
