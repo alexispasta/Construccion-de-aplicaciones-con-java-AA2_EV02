@@ -29,6 +29,6 @@ public class NominaServlet extends HttpServlet {
         NominaDAO dao = new NominaDAO();
         dao.insertarNomina(nomina);
 
-        response.sendRedirect("nomina_exito.jsp");
+        response.getWriter().println("<h1>Operacion completada con exito.</h1>");
     }
 }

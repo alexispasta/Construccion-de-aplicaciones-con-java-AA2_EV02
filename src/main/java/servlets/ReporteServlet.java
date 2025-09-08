@@ -53,13 +53,13 @@ public class ReporteServlet extends HttpServlet {
             boolean ok = dao.insertarReporte(reporte);
 
             if (ok) {
-                response.sendRedirect("reporte_exito.jsp");
+                response.getWriter().println("<h1>Operacion completada con exito.</h1>");
             } else {
-                response.sendRedirect("reporte_error.jsp");
+                response.getWriter().println("<h1>error en la operacion.</h1>");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("reporte_error.jsp");
+            response.getWriter().println("<h1>error en la operacion.</h1>");
         }
     }
 }

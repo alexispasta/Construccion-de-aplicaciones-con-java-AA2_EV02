@@ -56,14 +56,14 @@ public class PermisoServlet extends HttpServlet {
             boolean exito = dao.insertarPermiso(permiso);
 
             if (exito) {
-                response.sendRedirect("permiso_exito.jsp");
+                response.getWriter().println("<h1>Operacion completada con exito.</h1>");
             } else {
-                response.sendRedirect("permiso_error.jsp");
+                response.getWriter().println("<h1>error en la operacion.</h1>");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("permiso_error.jsp");
+            response.getWriter().println("<h1>error en la operacion.</h1>");
         }
     }
 }

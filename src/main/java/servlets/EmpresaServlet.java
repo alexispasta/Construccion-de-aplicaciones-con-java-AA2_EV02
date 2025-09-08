@@ -76,13 +76,13 @@ public class EmpresaServlet extends HttpServlet {
                 boolean insertado = personaDAO.insertarPersona(gerente);
 
                 if (insertado) {
-                    response.sendRedirect("exito.jsp");
+                    response.getWriter().println("<h1>Operacion completada con exito.</h1>");
                 } else {
-                    response.getWriter().println("<h1>Error al registrar gerente.</h1>");
+                    response.getWriter().println("<h1>error en la operacion.</h1>");
                 }
 
             } else {
-                response.getWriter().println("<h1>Error al registrar empresa.</h1>");
+                response.getWriter().println("<h1>error en la operacion.</h1>");
             }
         }
     }

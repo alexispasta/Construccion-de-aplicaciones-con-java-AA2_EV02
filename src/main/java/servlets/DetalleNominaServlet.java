@@ -68,13 +68,13 @@ public class DetalleNominaServlet extends HttpServlet {
             boolean exito = dao.insertarDetalle(detalle);
 
             if (exito) {
-                response.sendRedirect("detalleNomina.jsp?success=1");
+                response.getWriter().println("<h1>Operacion completada con exito.</h1>");
             } else {
-                response.sendRedirect("detalleNomina.jsp?error=1");
+                response.getWriter().println("<h1>error en la operacion.</h1>");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("detalleNomina.jsp?error=2");
+            response.getWriter().println("<h1>error en la operacion.</h1>");
         }
     }
 

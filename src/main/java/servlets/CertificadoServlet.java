@@ -48,14 +48,14 @@ public class CertificadoServlet extends HttpServlet {
             boolean ok = dao.insertarCertificado(certificado);
 
             if (ok) {
-                response.sendRedirect("certificado_exito.jsp");
+                response.getWriter().println("<h1>Operacion completada con exito.</h1>");
             } else {
-                response.sendRedirect("certificado_error.jsp");
+                response.getWriter().println("<h1>error en la operacion.</h1>");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("certificado_error.jsp");
+            response.getWriter().println("<h1>error en la operacion.</h1>");
         }
     }
 }

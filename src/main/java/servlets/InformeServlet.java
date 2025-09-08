@@ -30,6 +30,6 @@ public class InformeServlet extends HttpServlet {
         InformeDAO dao = new InformeDAO();
         dao.insertarInforme(informe);
 
-        response.sendRedirect("informe_exito.jsp");
+        response.getWriter().println("<h1>Operacion completada con exito.</h1>");
     }
 }
