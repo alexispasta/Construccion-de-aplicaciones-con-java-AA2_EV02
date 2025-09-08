@@ -23,12 +23,13 @@ public class LoginServlet extends HttpServlet {
         Persona persona = dao.validarLogin(correo, contrasena);
 
         if (persona != null) {
-            // Guardar sesión
+            // 👉 Guardar usuario y empresa en sesión
             HttpSession session = request.getSession();
             session.setAttribute("usuario", persona);
+            session.setAttribute("idEmpresa", persona.getIdEmpresa()); // 👈 importante
 
-            // Redirigir al dashboard
-            response.sendRedirect("dashboard.html");
+            // Redirigir al dashboard (puede ser un JSP o HTML)
+            response.sendRedirect("dashboard.jsp");
         } else {
             // Si no existe, volver al login con error
             response.sendRedirect("login.html?error=1");

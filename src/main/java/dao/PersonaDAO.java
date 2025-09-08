@@ -134,5 +134,33 @@ public class PersonaDAO {
     }
     return lista;
 }
+// OBTENER EMPLEADOS DE UNA EMPRESA ESPECÍFICA
+public List<Persona> obtenerPorEmpresa(int idEmpresa) {
+    List<Persona> lista = new ArrayList<>();
+    String sql = "SELECT * FROM persona WHERE id_empresa = ? AND activo = true";
+
+    try (Connection con = ConexionBD.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, idEmpresa);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Persona persona = new Persona();
+            persona.setId(rs.getInt("id"));
+            persona.setNombre(rs.getString("nombre"));
+            persona.setApellido(rs.getString("apellido"));
+            persona.setCorreo(rs.getString("correo"));
+            persona.setRol(rs.getString("rol"));
+            persona.setActivo(rs.getBoolean("activo"));
+            persona.setIdEmpresa(rs.getInt("id_empresa"));
+            lista.add(persona);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener empleados por empresa: " + e.getMessage());
+    }
+    return lista;
+}
+
 
 }
