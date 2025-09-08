@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 
 import dao.PermisoDAO;
+import dao.PersonaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,20 +30,28 @@ public class PermisoServlet extends HttpServlet {
 
             Persona usuario = (Persona) session.getAttribute("usuario");
 
-            // El autor es siempre el usuario logueado
+            // Datos del formulario
             int idAutor = usuario.getId();
             int idPersona = Integer.parseInt(request.getParameter("id_persona"));
             String razon = request.getParameter("razon");
             Date fechaSolicitud = Date.valueOf(request.getParameter("fecha_solicitud"));
             Date fechaAplicacion = Date.valueOf(request.getParameter("fecha_aplicacion"));
 
+            // Buscar empleado para obtener nombre y documento
+            PersonaDAO personaDAO = new PersonaDAO();
+            Persona empleado = personaDAO.obtenerPorId(idPersona);
+
+            // Crear objeto permiso
             Permiso permiso = new Permiso();
             permiso.setIdAutor(idAutor);
             permiso.setIdPersona(idPersona);
+            permiso.setNombrePersona(empleado.getNombre() + " " + empleado.getApellido());
+            permiso.setDocumentoIdentidad(empleado.getDocumentoIdentidad());
             permiso.setRazon(razon);
             permiso.setFechaSolicitud(fechaSolicitud);
             permiso.setFechaAplicacion(fechaAplicacion);
 
+            // Insertar en BD
             PermisoDAO dao = new PermisoDAO();
             boolean exito = dao.insertarPermiso(permiso);
 
