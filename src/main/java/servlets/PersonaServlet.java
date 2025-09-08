@@ -47,8 +47,16 @@ public class PersonaServlet extends HttpServlet {
             String fechaNacStr = request.getParameter("fecha_nacimiento");
             Date fechaNacimiento = (fechaNacStr != null && !fechaNacStr.isEmpty()) ? Date.valueOf(fechaNacStr) : null;
 
-            String fechaContStr = request.getParameter("fecha_contratacion");
-            Date fechaContratacion = (fechaContStr != null && !fechaContStr.isEmpty()) ? Date.valueOf(fechaContStr) : null;
+            // 📌 Solo usamos fecha_contratacion automática en inserción
+            Date fechaContratacion;
+            if (id > 0) {
+                // Actualización → se conserva lo que venga del form (si lo mandas oculto)
+                String fechaContStr = request.getParameter("fecha_contratacion");
+                fechaContratacion = (fechaContStr != null && !fechaContStr.isEmpty()) ? Date.valueOf(fechaContStr) : null;
+            } else {
+                // Inserción → se genera con la fecha actual del servidor
+                fechaContratacion = new Date(System.currentTimeMillis());
+            }
 
             String tipoContrato = request.getParameter("tipo_contrato");
             String rol = request.getParameter("rol");
