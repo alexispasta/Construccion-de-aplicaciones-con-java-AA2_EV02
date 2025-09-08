@@ -42,20 +42,10 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Documento</th>
-                <th>F. Nacimiento</th>
-                <th>F. Contratación</th>
-                <th>Contrato</th>
-                <th>Rol</th>
-                <th>Activo</th>
-                <th>Contraseña</th>
-                <th>Acción</th>
+                <th>ID</th><th>Nombre</th><th>Apellido</th><th>Correo</th>
+                <th>Teléfono</th><th>Dirección</th><th>Documento</th>
+                <th>F. Nacimiento</th><th>F. Contratación</th>
+                <th>Contrato</th><th>Rol</th><th>Activo</th><th>Contraseña</th><th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -78,10 +68,11 @@
                     <td><input type="date" name="fecha_contratacion" value="<%= emp.getFechaContratacion() != null ? emp.getFechaContratacion().toString() : "" %>"></td>
                     <td>
                         <select name="tipo_contrato">
-                            <option value="termino fijo" <%= "termino fijo".equals(emp.getTipoContrato()) ? "selected" : "" %>>Término fijo</option>
-                            <option value="termino indefinido" <%= "termino indefinido".equals(emp.getTipoContrato()) ? "selected" : "" %>>Término indefinido</option>
-                            <option value="prestacion de servicios" <%= "prestacion de servicios".equals(emp.getTipoContrato()) ? "selected" : "" %>>Prestación de servicios</option>
-                        </select>
+    <option value="TERMINO_FIJO" <%= "TERMINO_FIJO".equals(emp.getTipoContrato()) ? "selected" : "" %>>Término fijo</option>
+    <option value="TERMINO_INDEFINIDO" <%= "TERMINO_INDEFINIDO".equals(emp.getTipoContrato()) ? "selected" : "" %>>Término indefinido</option>
+    <option value="PRESTACION_DE_SERVICIOS" <%= "PRESTACION_DE_SERVICIOS".equals(emp.getTipoContrato()) ? "selected" : "" %>>Prestación de servicios</option>
+</select>
+
                     </td>
                     <td>
                         <select name="rol">
@@ -91,14 +82,10 @@
                             <option value="gerente" <%= "gerente".equals(emp.getRol()) ? "selected" : "" %>>Gerente</option>
                         </select>
                     </td>
-                    <td>
-                        <input type="checkbox" name="activo" value="true" <%= emp.isActivo() ? "checked" : "" %>>
-                    </td>
+                    <td><input type="checkbox" name="activo" value="true" <%= emp.isActivo() ? "checked" : "" %>></td>
                     <td><input type="password" name="contrasena" value="<%= emp.getContrasena() == null ? "" : emp.getContrasena() %>"></td>
                     
-                    <!-- El id_empresa lo tomamos de la sesión, no editable -->
                     <input type="hidden" name="id_empresa" value="<%= idEmpresa %>">
-
                     <td><button type="submit">Guardar</button></td>
                 </form>
             </tr>

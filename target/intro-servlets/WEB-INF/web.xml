@@ -8,101 +8,77 @@
         <servlet-name>EmpresaServlet</servlet-name>
         <servlet-class>servlets.EmpresaServlet</servlet-class>
     </servlet>
+
     <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>servlets.LoginServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-</servlet-mapping>
-
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>EmpresaServlet</servlet-name>
         <url-pattern>/EmpresaServlet</url-pattern>
     </servlet-mapping>
 
+
+
     <servlet>
-    <servlet-name>PersonaServlet</servlet-name>
-    <servlet-class>servlets.PersonaServlet</servlet-class>
-</servlet>
+        <servlet-name>CertificadoServlet</servlet-name>
+        <servlet-class>servlets.CertificadoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificadoServlet</servlet-name>
+        <url-pattern>/certificado</url-pattern>
+    </servlet-mapping>
 
-<servlet-mapping>
-    <servlet-name>PersonaServlet</servlet-name>
-    <url-pattern>/PersonaServlet</url-pattern>
-</servlet-mapping>
+    <!-- PermisoServlet eliminado, porque ya usa @WebServlet("/permiso") -->
 
-<servlet>
-    <servlet-name>CertificadoServlet</servlet-name>
-    <servlet-class>servlets.CertificadoServlet</servlet-class>
-</servlet>
+    <servlet>
+        <servlet-name>AsistenciaServlet</servlet-name>
+        <servlet-class>servlets.AsistenciaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AsistenciaServlet</servlet-name>
+        <url-pattern>/asistencia</url-pattern>
+    </servlet-mapping>
 
-<servlet-mapping>
-    <servlet-name>CertificadoServlet</servlet-name>
-    <url-pattern>/certificado</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>ReporteServlet</servlet-name>
+        <servlet-class>servlets.ReporteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReporteServlet</servlet-name>
+        <url-pattern>/reporte</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-    <servlet-name>PermisoServlet</servlet-name>
-    <servlet-class>servlets.PermisoServlet</servlet-class>
-</servlet>
+    <servlet>
+        <servlet-name>NominaServlet</servlet-name>
+        <servlet-class>servlets.NominaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NominaServlet</servlet-name>
+        <url-pattern>/nomina</url-pattern>
+    </servlet-mapping>
 
-<servlet-mapping>
-    <servlet-name>PermisoServlet</servlet-name>
-    <url-pattern>/permiso</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>InformeServlet</servlet-name>
+        <servlet-class>servlets.InformeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InformeServlet</servlet-name>
+        <url-pattern>/informe</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-    <servlet-name>AsistenciaServlet</servlet-name>
-    <servlet-class>servlets.AsistenciaServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>AsistenciaServlet</servlet-name>
-    <url-pattern>/asistencia</url-pattern>
-</servlet-mapping>
-
-<servlet>
-    <servlet-name>ReporteServlet</servlet-name>
-    <servlet-class>servlets.ReporteServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>ReporteServlet</servlet-name>
-    <url-pattern>/reporte</url-pattern>
-</servlet-mapping>
-
-<servlet>
-    <servlet-name>NominaServlet</servlet-name>
-    <servlet-class>servlets.NominaServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>NominaServlet</servlet-name>
-    <url-pattern>/nomina</url-pattern>
-</servlet-mapping>
-
-<servlet>
-    <servlet-name>InformeServlet</servlet-name>
-    <servlet-class>servlets.InformeServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>InformeServlet</servlet-name>
-    <url-pattern>/informe</url-pattern>
-</servlet-mapping>
-
-<servlet>
-    <servlet-name>DetalleNominaServlet</servlet-name>
-    <servlet-class>servlets.DetalleNominaServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>DetalleNominaServlet</servlet-name>
-    <url-pattern>/detalleNomina</url-pattern>
-</servlet-mapping>
-
+    <servlet>
+        <servlet-name>DetalleNominaServlet</servlet-name>
+        <servlet-class>servlets.DetalleNominaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetalleNominaServlet</servlet-name>
+        <url-pattern>/detalleNomina</url-pattern>
+    </servlet-mapping>
 
 </web-app>

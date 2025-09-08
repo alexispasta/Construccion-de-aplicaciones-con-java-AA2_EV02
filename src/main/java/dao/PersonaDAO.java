@@ -137,7 +137,7 @@ public class PersonaDAO {
 // OBTENER EMPLEADOS DE UNA EMPRESA ESPECÍFICA
 public List<Persona> obtenerPorEmpresa(int idEmpresa) {
     List<Persona> lista = new ArrayList<>();
-    String sql = "SELECT * FROM persona WHERE id_empresa = ? AND activo = true";
+    String sql = "SELECT * FROM persona WHERE id_empresa = ?";
 
     try (Connection con = ConexionBD.getConnection();
          PreparedStatement ps = con.prepareStatement(sql)) {
@@ -151,8 +151,15 @@ public List<Persona> obtenerPorEmpresa(int idEmpresa) {
             persona.setNombre(rs.getString("nombre"));
             persona.setApellido(rs.getString("apellido"));
             persona.setCorreo(rs.getString("correo"));
+            persona.setTelefono(rs.getString("telefono"));
+            persona.setDireccion(rs.getString("direccion"));
+            persona.setDocumentoIdentidad(rs.getString("documento_identidad"));
+            persona.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+            persona.setFechaContratacion(rs.getDate("fecha_contratacion"));
+            persona.setTipoContrato(rs.getString("tipo_contrato"));
             persona.setRol(rs.getString("rol"));
             persona.setActivo(rs.getBoolean("activo"));
+            persona.setContrasena(rs.getString("contrasena"));
             persona.setIdEmpresa(rs.getInt("id_empresa"));
             lista.add(persona);
         }
@@ -161,7 +168,8 @@ public List<Persona> obtenerPorEmpresa(int idEmpresa) {
     }
     return lista;
 }
-// Dentro de PersonaDAO
+
+// OBTENER PERSONA POR ID
 public Persona obtenerPorId(int id) {
     String sql = "SELECT * FROM persona WHERE id = ?";
     try (Connection con = ConexionBD.getConnection();
@@ -176,8 +184,15 @@ public Persona obtenerPorId(int id) {
             persona.setNombre(rs.getString("nombre"));
             persona.setApellido(rs.getString("apellido"));
             persona.setCorreo(rs.getString("correo"));
+            persona.setTelefono(rs.getString("telefono"));
+            persona.setDireccion(rs.getString("direccion"));
+            persona.setDocumentoIdentidad(rs.getString("documento_identidad"));
+            persona.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+            persona.setFechaContratacion(rs.getDate("fecha_contratacion"));
+            persona.setTipoContrato(rs.getString("tipo_contrato"));
             persona.setRol(rs.getString("rol"));
             persona.setActivo(rs.getBoolean("activo"));
+            persona.setContrasena(rs.getString("contrasena"));
             persona.setIdEmpresa(rs.getInt("id_empresa"));
             return persona;
         }
@@ -186,6 +201,7 @@ public Persona obtenerPorId(int id) {
     }
     return null;
 }
+
 
 
 
