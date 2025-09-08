@@ -3,8 +3,17 @@
 <%@ page import="dao.PersonaDAO" %>
 
 <%
+    // Recuperar usuario logueado
+    Persona usuario = (Persona) session.getAttribute("usuario");
+    if (usuario == null) {
+        response.sendRedirect("login.html");
+        return;
+    }
+
+    int idEmpresa = usuario.getIdEmpresa();
+
     PersonaDAO dao = new PersonaDAO();
-    List<Persona> empleados = dao.obtenerTodos();
+    List<Persona> empleados = dao.obtenerPorEmpresa(idEmpresa);
 %>
 
 <!DOCTYPE html>

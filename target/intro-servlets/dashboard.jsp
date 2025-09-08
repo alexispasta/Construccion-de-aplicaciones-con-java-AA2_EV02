@@ -78,6 +78,8 @@
         <a href="certificadoForm.jsp" class="btn">Certificados</a>
         <a href="personaForm.jsp" class="btn">Empleados</a>
         <a href="permisoForm.jsp" class="btn">Permisos</a>
+        <a href="logout.jsp" class="btn">Cerrar Sesión</a>
+
     </div>
 </body>
 </html>
