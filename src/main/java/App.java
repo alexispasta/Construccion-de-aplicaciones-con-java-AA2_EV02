@@ -13,9 +13,9 @@ public class App {
         empresa.setCiudad("barrancabermeja");
         empresa.setPais("Colombia");
 
-        boolean insertado = dao.insertarEmpresa(empresa);
-        if (insertado) {
-            System.out.println("Empresa insertada correctamente.");
+        int idGenerado = dao.insertarEmpresa(empresa); // 🔹 ahora recibimos un int
+        if (idGenerado > 0) {
+            System.out.println("Empresa insertada correctamente con ID: " + idGenerado);
         } else {
             System.out.println("Error al insertar empresa.");
         }
